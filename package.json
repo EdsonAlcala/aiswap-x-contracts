@@ -4,7 +4,8 @@
     "compile": "hardhat compile",
     "test:usdc": "hardhat test test/USDC.test.ts",
     "test:weth": "hardhat test test/WETH.test.ts",
-    "test:aiswap": "hardhat test test/AISwap.test.ts"
+    "test:aiswap": "hardhat test test/AISwap.test.ts",
+    "test": "hardhat test"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",

@@ -52,6 +52,8 @@ describe("AISwap tests", () => {
         const swapperSigner = await getSwapperSigner();
         await wethToken.connect(swapperSigner).approve(aiSwapAddress, inputAmount);
 
+        const balanceWETHBefore = await wethToken.balanceOf(swapperSigner.address);
+
         const tx = aiSwap.connect(swapperSigner).createAuction({
             tokenInputAddress: wethTokenAddress,
             tokenOutputAddress: usdcTokenAddress,
@@ -85,6 +87,11 @@ describe("AISwap tests", () => {
         expect(auction.claimer).to.be.equal(ethers.ZeroAddress);
         expect(auction.owner).to.be.equal(swapperSigner.address);
         expect(auction.auctionStatus).to.be.equal(AuctionStatus.OPEN);
+
+        const balanceWETHAfter = await wethToken.balanceOf(swapperSigner.address);
+        // @dev since I simply create an auction, it means the input amount gets discount from my balance
+        expect(balanceWETHAfter).to.be.equal(balanceWETHBefore - inputAmount);
+
     })
 
     // RECLAIM AUCTION FUNDS
@@ -95,6 +102,8 @@ describe("AISwap tests", () => {
         const swapperSigner = await getSwapperSigner();
         await wethToken.connect(swapperSigner).approve(aiSwapAddress, inputAmount);
         const timeStamp = await time.latest();
+
+        const balanceWETHBefore = await wethToken.balanceOf(swapperSigner.address);
 
         await aiSwap.connect(swapperSigner).createAuction({
             tokenInputAddress: wethTokenAddress,
@@ -125,6 +134,10 @@ describe("AISwap tests", () => {
         expect(auction.claimer).to.be.equal(ethers.ZeroAddress);
         expect(auction.owner).to.be.equal(swapperSigner.address);
         expect(auction.auctionStatus).to.be.equal(AuctionStatus.EXPIRED);
+
+        const balanceWETHAfter = await wethToken.balanceOf(swapperSigner.address);
+        // @dev since I simply recover all, my balances should be equal
+        expect(balanceWETHAfter).to.be.equal(balanceWETHBefore);
     })
 
     it("shouldn't allow to reclaim an auction if auction period hasn't passed", async () => {
@@ -299,6 +312,7 @@ describe("AISwap tests", () => {
         });
 
         const claimerSigner = await getClaimerSigner();
+        const claimerWETHBalanceBefore = await wethToken.balanceOf(await claimerSigner.getAddress());
 
         const newClaimTimestamp = await time.latest();
         await expect(aiSwap.connect(claimerSigner).claimAuction(1))
@@ -336,6 +350,13 @@ describe("AISwap tests", () => {
         expect(auctionAgain.claimer).to.be.equal(await claimerSigner.getAddress());
         expect(auctionAgain.owner).to.be.equal(swapperSigner.address);
         expect(auctionAgain.auctionStatus).to.be.equal(AuctionStatus.SETTLED);
+
+        // assert balance 
+        const claimerWETHBalanceAfter = await wethToken.balanceOf(await claimerSigner.getAddress());
+
+        // @since the USDC transfer happens in another Blockchain, we consider a no dispute as the case where everything went well and he simply receives
+        // the amount of WETH he was expecting
+        expect(claimerWETHBalanceAfter).to.be.equal(claimerWETHBalanceBefore + inputAmount);
     })
 
     it("shouldn't allow settle an auction that is not claimed", async () => {
