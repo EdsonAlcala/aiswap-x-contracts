@@ -3,7 +3,8 @@
   "scripts": {
     "compile": "hardhat compile",
     "test:usdc": "hardhat test test/USDC.test.ts",
-    "test:weth": "hardhat test test/WETH.test.ts"
+    "test:weth": "hardhat test test/WETH.test.ts",
+    "test:aiswap": "hardhat test test/AISwap.test.ts"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",

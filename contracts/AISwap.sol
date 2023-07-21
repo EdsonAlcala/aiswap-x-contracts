@@ -49,6 +49,7 @@ contract AISwap {
     mapping(uint256 => Auction) public auctions;
     mapping(uint256 => bool) public auctionExists;
 
+    // @dev event triggered when an auction is created
     event AuctionCreated(
         uint256 auctionId,
         address tokenInputAddress,
@@ -59,21 +60,14 @@ contract AISwap {
         AuctionStatus auctionStatus
     );
 
-    event AuctionClaimed(
-        uint256 auctionId,
-        address tokenInputAddress,
-        address tokenOutputAddress,
-        uint256 tokenInputAmount,
-        uint256 minimumTokenOutputAmount,
-        uint256 creationTime,
-        uint256 claimingTime,
-        address claimer,
-        address owner,
-        AuctionStatus auctionStatus
-    );
+    // @dev event triggered when the auction owner reclaims the funds after the auction expired
+    event AuctionFundsClaimed(uint256 auctionId, AuctionStatus auctionStatus);
 
-    // TODO
-    event AuctionSettled();
+    // @dev event triggered when the auction is claimed
+    event AuctionClaimed(uint256 auctionId, uint256 claimingTime, address claimer, AuctionStatus auctionStatus);
+
+    // @dev event triggered when the auction is settled
+    event AuctionSettled(uint256 auctionId, AuctionStatus auctionStatus);
 
     // Swapper Functions
     function createAuction(AuctionOrder calldata _order) external {
@@ -109,7 +103,11 @@ contract AISwap {
         );
     }
 
-    function reclaimAuction(uint256 _auctionId) external onlyValidAuctionIds(_auctionId) onlyAuctionOwner(_auctionId) {
+    function reclaimAuctionFunds(uint256 _auctionId)
+        external
+        onlyValidAuctionIds(_auctionId)
+        onlyAuctionOwner(_auctionId)
+    {
         // @dev only open auctions that expired can be reclaimed
         if (auctions[_auctionId].auctionStatus != AuctionStatus.OPEN) {
             revert AuctionIsNotOpen();
@@ -126,6 +124,8 @@ contract AISwap {
         IERC20(auctions[_auctionId].tokenInputAddress).transfer(
             auctions[_auctionId].owner, auctions[_auctionId].tokenInputAmount
         );
+
+        emit AuctionFundsClaimed(_auctionId, AuctionStatus.EXPIRED);
     }
 
     // Claimer Functions
@@ -143,6 +143,8 @@ contract AISwap {
         auctions[_auctionId].auctionStatus = AuctionStatus.CLAIMED;
         auctions[_auctionId].claimingTime = block.timestamp;
         auctions[_auctionId].claimer = msg.sender;
+
+        emit AuctionClaimed(_auctionId, block.timestamp, msg.sender, AuctionStatus.CLAIMED);
     }
 
     function settleAuction(uint256 _auctionId) external onlyValidAuctionIds(_auctionId) {
@@ -167,6 +169,8 @@ contract AISwap {
         IERC20(auctions[_auctionId].tokenInputAddress).transfer(
             auctions[_auctionId].claimer, auctions[_auctionId].tokenInputAmount
         );
+
+        emit AuctionSettled(_auctionId, AuctionStatus.SETTLED);
     }
 
     // Modifiers
