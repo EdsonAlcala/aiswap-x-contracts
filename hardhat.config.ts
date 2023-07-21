@@ -5,6 +5,8 @@ import "@nomicfoundation/hardhat-toolbox";
 
 import "hardhat-deploy";
 
+import { CONFIG } from "./config";
+
 const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.19",
@@ -21,7 +23,7 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
-        url: `https://arbitrum-mainnet.infura.io/v3/${process.env.INFURA_API_KEY || ""}`,
+        url: CONFIG.arbitrumMainnetRPCURL,
         enabled: true,
         blockNumber: 113544548
       }
@@ -29,26 +31,26 @@ const config: HardhatUserConfig = {
     network1: {
       url: "http://localhost:8545",
       forking: {
-        url: `https://arbitrum-goerli.infura.io/v3/${process.env.INFURA_API_KEY || ""}`,
+        url: CONFIG.arbitrumGoerliRPCURL,
         enabled: true
       }
     },
     network2: {
       url: "http://localhost:8546",
       forking: {
-        url: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY || ""}`,
+        url: CONFIG.goerliRPCURL,
         enabled: true
       }
     },
     arbitrum_goerli: {
-      url: `https://arbitrum-goerli.infura.io/v3/${process.env.INFURA_API_KEY || ""}`,
+      url: CONFIG.arbitrumGoerliRPCURL,
       accounts: {
         mnemonic: process.env.ARBITRUM_TESTNET_MNEMONIC || "",
         initialIndex: 1
       }
     },
     goerli: {
-      url: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY || ""}`,
+      url: CONFIG.goerliRPCURL,
       accounts: {
         mnemonic: process.env.GOERLI_TESTNET_MNEMONIC || "",
         initialIndex: 2
