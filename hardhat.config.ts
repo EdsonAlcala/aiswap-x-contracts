@@ -7,6 +7,12 @@ import "hardhat-deploy";
 
 import { CONFIG } from "./config";
 
+const DEPLOYER_MNEMONIC = process.env.DEPLOYER_MNEMONIC || "";
+
+if (!DEPLOYER_MNEMONIC) {
+  throw new Error("Please set your DEPLOYER_MNEMONIC in a .env file");
+}
+
 const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.19",
@@ -45,14 +51,14 @@ const config: HardhatUserConfig = {
     arbitrum_goerli: {
       url: CONFIG.arbitrumGoerliRPCURL,
       accounts: {
-        mnemonic: process.env.ARBITRUM_TESTNET_MNEMONIC || "",
+        mnemonic: DEPLOYER_MNEMONIC,
         initialIndex: 1
       }
     },
     goerli: {
       url: CONFIG.goerliRPCURL,
       accounts: {
-        mnemonic: process.env.GOERLI_TESTNET_MNEMONIC || "",
+        mnemonic: DEPLOYER_MNEMONIC,
         initialIndex: 2
       }
     }
