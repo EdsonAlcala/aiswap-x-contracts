@@ -27,6 +27,8 @@ contract AISwap {
         uint256 claimingTime; // @dev This is the time when the auction is claimed
         address claimer; // @dev This is the address of the claimer
         address owner; // @dev This is the address of the owner of the auction
+        uint256 sourceChain;
+        uint256 destinationChain;
         AuctionStatus auctionStatus;
     }
 
@@ -35,6 +37,8 @@ contract AISwap {
         address tokenOutputAddress;
         uint256 tokenInputAmount;
         uint256 minimumTokenOutputAmount;
+        uint256 sourceChain;
+        uint256 destinationChain;
     }
 
     enum AuctionStatus {
@@ -57,6 +61,9 @@ contract AISwap {
         uint256 tokenInputAmount,
         uint256 minimumTokenOutputAmount,
         uint256 creationTime,
+        address owner,
+        uint256 sourceChain,
+        uint256 destinationChain,
         AuctionStatus auctionStatus
     );
 
@@ -84,6 +91,8 @@ contract AISwap {
             0, // @dev claiming time is zero at creation
             address(0), // @dev claimer is zero at creation
             msg.sender, // @dev owner is the sender
+            _order.sourceChain,
+            _order.destinationChain,
             AuctionStatus.OPEN
         );
 
@@ -99,6 +108,9 @@ contract AISwap {
             _order.tokenInputAmount,
             _order.minimumTokenOutputAmount,
             creationTime,
+            msg.sender,
+            _order.sourceChain,
+            _order.destinationChain,
             AuctionStatus.OPEN
         );
     }

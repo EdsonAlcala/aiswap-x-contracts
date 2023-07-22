@@ -23,6 +23,8 @@ describe("AISwap tests", () => {
     let aiSwapAddress: string
 
     let deployer: HardhatEthersSigner
+    const sourceChain = 1;
+    const destinationChain = 2;
 
     beforeEach(async () => {
         [deployer] = await ethers.getSigners()
@@ -59,6 +61,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
         const timeStamp = await time.latest();
@@ -72,6 +76,9 @@ describe("AISwap tests", () => {
                 inputAmount,
                 minimumOutputAmount,
                 timeStamp + 1,
+                swapperSigner.address,
+                sourceChain,
+                destinationChain,
                 AuctionStatus.OPEN
             );
 
@@ -87,6 +94,8 @@ describe("AISwap tests", () => {
         expect(auction.claimer).to.be.equal(ethers.ZeroAddress);
         expect(auction.owner).to.be.equal(swapperSigner.address);
         expect(auction.auctionStatus).to.be.equal(AuctionStatus.OPEN);
+        expect(auction.sourceChain).to.be.equal(sourceChain);
+        expect(auction.destinationChain).to.be.equal(destinationChain);
 
         const balanceWETHAfter = await wethToken.balanceOf(swapperSigner.address);
         // @dev since I simply create an auction, it means the input amount gets discount from my balance
@@ -110,6 +119,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
 
@@ -134,6 +145,8 @@ describe("AISwap tests", () => {
         expect(auction.claimer).to.be.equal(ethers.ZeroAddress);
         expect(auction.owner).to.be.equal(swapperSigner.address);
         expect(auction.auctionStatus).to.be.equal(AuctionStatus.EXPIRED);
+        expect(auction.sourceChain).to.be.equal(sourceChain);
+        expect(auction.destinationChain).to.be.equal(destinationChain);
 
         const balanceWETHAfter = await wethToken.balanceOf(swapperSigner.address);
         // @dev since I simply recover all, my balances should be equal
@@ -151,6 +164,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
         await expect(aiSwap.connect(swapperSigner).reclaimAuctionFunds(1))
@@ -168,6 +183,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
         // move time to pass auction period
@@ -190,6 +207,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
         // move time to pass auction period
@@ -216,6 +235,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
         const claimerSigner = await getClaimerSigner();
@@ -236,6 +257,8 @@ describe("AISwap tests", () => {
         expect(auction.claimer).to.be.equal(await claimerSigner.getAddress());
         expect(auction.owner).to.be.equal(swapperSigner.address);
         expect(auction.auctionStatus).to.be.equal(AuctionStatus.CLAIMED);
+        expect(auction.sourceChain).to.be.equal(sourceChain);
+        expect(auction.destinationChain).to.be.equal(destinationChain);
     })
 
     it("shouldn't allow to claim an auction when the period has passed", async () => {
@@ -251,6 +274,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
 
@@ -278,6 +303,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
         // move time to pass auction period
@@ -309,6 +336,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
         const claimerSigner = await getClaimerSigner();
@@ -330,6 +359,8 @@ describe("AISwap tests", () => {
         expect(auction.claimer).to.be.equal(await claimerSigner.getAddress());
         expect(auction.owner).to.be.equal(swapperSigner.address);
         expect(auction.auctionStatus).to.be.equal(AuctionStatus.CLAIMED);
+        expect(auction.sourceChain).to.be.equal(sourceChain);
+        expect(auction.destinationChain).to.be.equal(destinationChain);
 
         const challengePeriod = await aiSwap.CHALLENGE_PERIOD();
 
@@ -371,6 +402,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
         const claimerSigner = await getClaimerSigner();
@@ -395,6 +428,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
         const claimerSigner = await getClaimerSigner();
@@ -415,6 +450,8 @@ describe("AISwap tests", () => {
         expect(auction.claimer).to.be.equal(await claimerSigner.getAddress());
         expect(auction.owner).to.be.equal(swapperSigner.address);
         expect(auction.auctionStatus).to.be.equal(AuctionStatus.CLAIMED);
+        expect(auction.sourceChain).to.be.equal(sourceChain);
+        expect(auction.destinationChain).to.be.equal(destinationChain);
 
         const challengePeriod = await aiSwap.CHALLENGE_PERIOD();
 
@@ -436,6 +473,8 @@ describe("AISwap tests", () => {
             tokenOutputAddress: usdcTokenAddress,
             tokenInputAmount: inputAmount,
             minimumTokenOutputAmount: minimumOutputAmount,
+            sourceChain,
+            destinationChain
         });
 
         const claimerSigner = await getClaimerSigner();
@@ -456,6 +495,8 @@ describe("AISwap tests", () => {
         expect(auction.claimer).to.be.equal(await claimerSigner.getAddress());
         expect(auction.owner).to.be.equal(swapperSigner.address);
         expect(auction.auctionStatus).to.be.equal(AuctionStatus.CLAIMED);
+        expect(auction.sourceChain).to.be.equal(sourceChain);
+        expect(auction.destinationChain).to.be.equal(destinationChain);
 
         await expect(aiSwap.connect(claimerSigner).settleAuction(1))
             .to.be.revertedWithCustomError(aiSwap, "ChallengePeriodInProgress");
