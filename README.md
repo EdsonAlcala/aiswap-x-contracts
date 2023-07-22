@@ -1,13 +1,7 @@
-# Sample Hardhat Project
+# AISwap-X Contracts
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This repository contains the contracts of the AISwap protocol.
 
-Try running some of the following tasks:
+Anybody can become a bidder and claim orders to fill across chains.
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
+The protocol uses a permissionless OFA model that allow anybody to participate as bidder.
