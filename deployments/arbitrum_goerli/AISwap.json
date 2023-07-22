@@ -1,0 +1,596 @@
+{
+  "address": "0xE406C07EcF5c9c0ff9Be423E77443b0D563c188b",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "AuctionDoesNotExist",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AuctionIsNotClaimed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AuctionIsNotExpired",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AuctionIsNotOpen",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AuctionPeriodPassed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ChallengePeriodInProgress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidClaimer",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyAuctionOwner",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "auctionId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "claimingTime",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "claimer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum AISwap.AuctionStatus",
+          "name": "auctionStatus",
+          "type": "uint8"
+        }
+      ],
+      "name": "AuctionClaimed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "auctionId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "tokenInputAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "tokenOutputAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "tokenInputAmount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "minimumTokenOutputAmount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "creationTime",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "sourceChain",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "destinationChain",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum AISwap.AuctionStatus",
+          "name": "auctionStatus",
+          "type": "uint8"
+        }
+      ],
+      "name": "AuctionCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "auctionId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum AISwap.AuctionStatus",
+          "name": "auctionStatus",
+          "type": "uint8"
+        }
+      ],
+      "name": "AuctionFundsClaimed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "auctionId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum AISwap.AuctionStatus",
+          "name": "auctionStatus",
+          "type": "uint8"
+        }
+      ],
+      "name": "AuctionSettled",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "AUCTION_PERIOD",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "CHALLENGE_PERIOD",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "auctionCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "auctionExists",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "auctions",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "auctionId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenInputAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenOutputAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenInputAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minimumTokenOutputAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "creationTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "claimingTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "claimer",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "sourceChain",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "destinationChain",
+          "type": "uint256"
+        },
+        {
+          "internalType": "enum AISwap.AuctionStatus",
+          "name": "auctionStatus",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_auctionId",
+          "type": "uint256"
+        }
+      ],
+      "name": "claimAuction",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "tokenInputAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "tokenOutputAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenInputAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minimumTokenOutputAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sourceChain",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "destinationChain",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct AISwap.AuctionOrder",
+          "name": "_order",
+          "type": "tuple"
+        }
+      ],
+      "name": "createAuction",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_auctionId",
+          "type": "uint256"
+        }
+      ],
+      "name": "reclaimAuctionFunds",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_auctionId",
+          "type": "uint256"
+        }
+      ],
+      "name": "settleAuction",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x2942c3d381098cf96a9f1d3af9aa89bd0ba00049d98eee81399eb2d146e2ee31",
+  "receipt": {
+    "to": null,
+    "from": "0x23BF95De9F90338F973056351C8Cd2CB78cbe52f",
+    "contractAddress": "0xE406C07EcF5c9c0ff9Be423E77443b0D563c188b",
+    "transactionIndex": 2,
+    "gasUsed": "1165608",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xc3c4c8956e83aba725899aff53b03cc7986697961845deff8e3fa0d23736e143",
+    "transactionHash": "0x2942c3d381098cf96a9f1d3af9aa89bd0ba00049d98eee81399eb2d146e2ee31",
+    "logs": [],
+    "blockNumber": 31397578,
+    "cumulativeGasUsed": "1551248",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "8f2ab7edc852730c6869afc1e948e42a",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"AuctionDoesNotExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AuctionIsNotClaimed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AuctionIsNotExpired\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AuctionIsNotOpen\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AuctionPeriodPassed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ChallengePeriodInProgress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidClaimer\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyAuctionOwner\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"auctionId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"claimingTime\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"claimer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"enum AISwap.AuctionStatus\",\"name\":\"auctionStatus\",\"type\":\"uint8\"}],\"name\":\"AuctionClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"auctionId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"tokenInputAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"tokenOutputAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenInputAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minimumTokenOutputAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"creationTime\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"sourceChain\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"destinationChain\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"enum AISwap.AuctionStatus\",\"name\":\"auctionStatus\",\"type\":\"uint8\"}],\"name\":\"AuctionCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"auctionId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"enum AISwap.AuctionStatus\",\"name\":\"auctionStatus\",\"type\":\"uint8\"}],\"name\":\"AuctionFundsClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"auctionId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"enum AISwap.AuctionStatus\",\"name\":\"auctionStatus\",\"type\":\"uint8\"}],\"name\":\"AuctionSettled\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"AUCTION_PERIOD\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"CHALLENGE_PERIOD\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"auctionCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"auctionExists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"auctions\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"auctionId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenInputAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenOutputAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenInputAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minimumTokenOutputAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"creationTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"claimingTime\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"claimer\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"sourceChain\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"destinationChain\",\"type\":\"uint256\"},{\"internalType\":\"enum AISwap.AuctionStatus\",\"name\":\"auctionStatus\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"claimAuction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"tokenInputAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenOutputAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenInputAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minimumTokenOutputAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"sourceChain\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"destinationChain\",\"type\":\"uint256\"}],\"internalType\":\"struct AISwap.AuctionOrder\",\"name\":\"_order\",\"type\":\"tuple\"}],\"name\":\"createAuction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"reclaimAuctionFunds\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_auctionId\",\"type\":\"uint256\"}],\"name\":\"settleAuction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/AISwap.sol\":\"AISwap\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `to`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address to, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `from` to `to` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 amount) external returns (bool);\\n}\\n\",\"keccak256\":\"0x287b55befed2961a7eabd7d7b1b2839cbca8a5b80ef8dcbb25ed3d4c2002c305\",\"license\":\"MIT\"},\"contracts/AISwap.sol\":{\"content\":\"//SPDX-License-Identifier: agpl-3.0\\npragma solidity 0.8.19;\\n\\nimport {IERC20} from \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\n\\nerror AuctionDoesNotExist();\\nerror AuctionIsNotOpen();\\nerror OnlyAuctionOwner();\\nerror AuctionIsNotExpired();\\nerror AuctionPeriodPassed();\\nerror AuctionIsNotClaimed();\\nerror InvalidClaimer();\\nerror ChallengePeriodInProgress();\\n\\n// Contract that allows you to cross chain swap tokens in a trustless way using a permissionless auction mechanism\\ncontract AISwap {\\n    uint256 public constant AUCTION_PERIOD = 1 minutes; // @dev You could think about this like a way to guarantee a fast swap\\n    uint256 public constant CHALLENGE_PERIOD = 5 minutes; // @dev This is the time that the claimer has to wait in order to settle the auction\\n\\n    struct Auction {\\n        uint256 auctionId;\\n        address tokenInputAddress;\\n        address tokenOutputAddress;\\n        uint256 tokenInputAmount;\\n        uint256 minimumTokenOutputAmount;\\n        uint256 creationTime; // @dev This is the time when the auction is created\\n        uint256 claimingTime; // @dev This is the time when the auction is claimed\\n        address claimer; // @dev This is the address of the claimer\\n        address owner; // @dev This is the address of the owner of the auction\\n        uint256 sourceChain;\\n        uint256 destinationChain;\\n        AuctionStatus auctionStatus;\\n    }\\n\\n    struct AuctionOrder {\\n        address tokenInputAddress;\\n        address tokenOutputAddress;\\n        uint256 tokenInputAmount;\\n        uint256 minimumTokenOutputAmount;\\n        uint256 sourceChain;\\n        uint256 destinationChain;\\n    }\\n\\n    enum AuctionStatus {\\n        OPEN,\\n        CLAIMED,\\n        SETTLED,\\n        EXPIRED\\n    }\\n\\n    uint256 public auctionCount;\\n\\n    mapping(uint256 => Auction) public auctions;\\n    mapping(uint256 => bool) public auctionExists;\\n\\n    // @dev event triggered when an auction is created\\n    event AuctionCreated(\\n        uint256 auctionId,\\n        address tokenInputAddress,\\n        address tokenOutputAddress,\\n        uint256 tokenInputAmount,\\n        uint256 minimumTokenOutputAmount,\\n        uint256 creationTime,\\n        address owner,\\n        uint256 sourceChain,\\n        uint256 destinationChain,\\n        AuctionStatus auctionStatus\\n    );\\n\\n    // @dev event triggered when the auction owner reclaims the funds after the auction expired\\n    event AuctionFundsClaimed(uint256 auctionId, AuctionStatus auctionStatus);\\n\\n    // @dev event triggered when the auction is claimed\\n    event AuctionClaimed(uint256 auctionId, uint256 claimingTime, address claimer, AuctionStatus auctionStatus);\\n\\n    // @dev event triggered when the auction is settled\\n    event AuctionSettled(uint256 auctionId, AuctionStatus auctionStatus);\\n\\n    // Swapper Functions\\n    function createAuction(AuctionOrder calldata _order) external {\\n        uint256 auctionId = ++auctionCount;\\n        uint256 creationTime = block.timestamp;\\n\\n        auctions[auctionId] = Auction(\\n            auctionId,\\n            _order.tokenInputAddress,\\n            _order.tokenOutputAddress,\\n            _order.tokenInputAmount,\\n            _order.minimumTokenOutputAmount,\\n            creationTime,\\n            0, // @dev claiming time is zero at creation\\n            address(0), // @dev claimer is zero at creation\\n            msg.sender, // @dev owner is the sender\\n            _order.sourceChain,\\n            _order.destinationChain,\\n            AuctionStatus.OPEN\\n        );\\n\\n        auctionExists[auctionId] = true;\\n\\n        // transfer tokens to this contract\\n        IERC20(_order.tokenInputAddress).transferFrom(msg.sender, address(this), _order.tokenInputAmount);\\n\\n        emit AuctionCreated(\\n            auctionId,\\n            _order.tokenInputAddress,\\n            _order.tokenOutputAddress,\\n            _order.tokenInputAmount,\\n            _order.minimumTokenOutputAmount,\\n            creationTime,\\n            msg.sender,\\n            _order.sourceChain,\\n            _order.destinationChain,\\n            AuctionStatus.OPEN\\n        );\\n    }\\n\\n    function reclaimAuctionFunds(uint256 _auctionId)\\n        external\\n        onlyValidAuctionIds(_auctionId)\\n        onlyAuctionOwner(_auctionId)\\n    {\\n        // @dev only open auctions that expired can be reclaimed\\n        if (auctions[_auctionId].auctionStatus != AuctionStatus.OPEN) {\\n            revert AuctionIsNotOpen();\\n        }\\n\\n        // @dev only expired auctions can be reclaimed\\n        if (block.timestamp < auctions[_auctionId].creationTime + AUCTION_PERIOD) {\\n            revert AuctionIsNotExpired();\\n        }\\n\\n        auctions[_auctionId].auctionStatus = AuctionStatus.EXPIRED;\\n\\n        // transfer tokens back to the owner\\n        IERC20(auctions[_auctionId].tokenInputAddress).transfer(\\n            auctions[_auctionId].owner, auctions[_auctionId].tokenInputAmount\\n        );\\n\\n        emit AuctionFundsClaimed(_auctionId, AuctionStatus.EXPIRED);\\n    }\\n\\n    // Claimer Functions\\n    function claimAuction(uint256 _auctionId) external onlyValidAuctionIds(_auctionId) {\\n        // @dev only open auctions can be claimed\\n        if (auctions[_auctionId].auctionStatus != AuctionStatus.OPEN) {\\n            revert AuctionIsNotOpen();\\n        }\\n\\n        // @dev only auctions that are within the auction period can be claimed\\n        if (block.timestamp > auctions[_auctionId].creationTime + AUCTION_PERIOD) {\\n            revert AuctionPeriodPassed();\\n        }\\n\\n        auctions[_auctionId].auctionStatus = AuctionStatus.CLAIMED;\\n        auctions[_auctionId].claimingTime = block.timestamp;\\n        auctions[_auctionId].claimer = msg.sender;\\n\\n        emit AuctionClaimed(_auctionId, block.timestamp, msg.sender, AuctionStatus.CLAIMED);\\n    }\\n\\n    function settleAuction(uint256 _auctionId) external onlyValidAuctionIds(_auctionId) {\\n        // @dev auction has to be CLAIMED\\n        if (auctions[_auctionId].auctionStatus != AuctionStatus.CLAIMED) {\\n            revert AuctionIsNotClaimed();\\n        }\\n\\n        // @dev cannot claim before the challenge period ends\\n        if (block.timestamp < auctions[_auctionId].claimingTime + CHALLENGE_PERIOD) {\\n            revert ChallengePeriodInProgress();\\n        }\\n\\n        // @dev only claimer can settle\\n        if (auctions[_auctionId].claimer != msg.sender) {\\n            revert InvalidClaimer();\\n        }\\n\\n        auctions[_auctionId].auctionStatus = AuctionStatus.SETTLED;\\n\\n        // @dev transfer input tokens to the claimer\\n        IERC20(auctions[_auctionId].tokenInputAddress).transfer(\\n            auctions[_auctionId].claimer, auctions[_auctionId].tokenInputAmount\\n        );\\n\\n        emit AuctionSettled(_auctionId, AuctionStatus.SETTLED);\\n    }\\n\\n    // Modifiers\\n    modifier onlyValidAuctionIds(uint256 _auctionId) {\\n        if (!auctionExists[_auctionId]) {\\n            revert AuctionDoesNotExist();\\n        }\\n        _;\\n    }\\n\\n    modifier onlyAuctionOwner(uint256 _auctionId) {\\n        if (auctions[_auctionId].owner != msg.sender) {\\n            revert OnlyAuctionOwner();\\n        }\\n        _;\\n    }\\n}\\n\",\"keccak256\":\"0x3e9f87485e1c366433be0e8f4f18a767dbe077741508ba8ebb40aa8909ae3e90\",\"license\":\"agpl-3.0\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610bdb806100206000396000f3fe608060405234801561001057600080fd5b50600436106100935760003560e01c8063571a26a011610066578063571a26a01461010f5780639aafc6c9146101a8578063ad5b572b146101bb578063c3a079ed146101ce578063c422c283146101d757600080fd5b806313cc63b0146100985780632ad71573146100ad5780632e993611146100c95780633c0868f0146100dc575b600080fd5b6100ab6100a6366004610978565b6101df565b005b6100b660005481565b6040519081526020015b60405180910390f35b6100ab6100d7366004610978565b6103b2565b6100ff6100ea366004610978565b60026020526000908152604090205460ff1681565b60405190151581526020016100c0565b61019061011d366004610978565b600160208190526000918252604090912080549181015460028201546003830154600484015460058501546006860154600787015460088801546009890154600a8a0154600b909a01546001600160a01b03998a169a988a16999798969795969495938416949390921692909160ff168c565b6040516100c09c9b9a999897969594939291906109c9565b6100ab6101b6366004610978565b610582565b6100ab6101c9366004610a44565b6106a5565b6100b661012c81565b6100b6603c81565b600081815260026020526040902054819060ff166102105760405163e6759c6760e01b815260040160405180910390fd5b60008281526001602052604090206008015482906001600160a01b0316331461024c576040516309359e9160e21b815260040160405180910390fd5b6000838152600160205260408120600b015460ff16600381111561027257610272610991565b146102905760405163f84e4cd960e01b815260040160405180910390fd5b6000838152600160205260409020600501546102ae90603c90610a72565b4210156102ce576040516315ce877360e21b815260040160405180910390fd5b600083815260016020819052604091829020600b8101805460ff191660039081179091559181015460088201549290910154925163a9059cbb60e01b81526001600160a01b0392831660048201526024810193909352169063a9059cbb906044016020604051808303816000875af115801561034e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103729190610a8b565b507f38cc7308f08523372c6405c0f30c2dea2c0200e46d3ad4ce5f020de16f0c41fe8360036040516103a5929190610ab4565b60405180910390a1505050565b600081815260026020526040902054819060ff166103e35760405163e6759c6760e01b815260040160405180910390fd5b60016000838152600160205260409020600b015460ff16600381111561040b5761040b610991565b1461042957604051630e91875760e41b815260040160405180910390fd5b6000828152600160205260409020600601546104489061012c90610a72565b421015610468576040516362b79be160e11b815260040160405180910390fd5b6000828152600160205260409020600701546001600160a01b031633146104a1576040516208978560e71b815260040160405180910390fd5b600082815260016020819052604091829020600b8101805460ff19166002179055908101546007820154600390920154925163a9059cbb60e01b81526001600160a01b0392831660048201526024810193909352169063a9059cbb906044016020604051808303816000875af115801561051f573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105439190610a8b565b507f368ce30642758fd6da9184c013bd43dc19f7aee61c1575f32fc2070b72549847826002604051610576929190610ab4565b60405180910390a15050565b600081815260026020526040902054819060ff166105b35760405163e6759c6760e01b815260040160405180910390fd5b6000828152600160205260408120600b015460ff1660038111156105d9576105d9610991565b146105f75760405163f84e4cd960e01b815260040160405180910390fd5b60008281526001602052604090206005015461061590603c90610a72565b42111561063557604051632c846e4160e21b815260040160405180910390fd5b600082815260016020819052604091829020600b8101805460ff1916831790554260068201819055600790910180546001600160a01b0319163390811790915592517f3254306c79735fd1387a3fdb988c98111651682c7dc7c9fa03b2b3bd8830c1339361057693879392610ac8565b600080600081546106b590610afb565b918290555060408051610180810190915281815290915042906020808201906106e090860186610b14565b6001600160a01b031681526020018460200160208101906107019190610b14565b6001600160a01b0316815260200184604001358152602001846060013581526020018281526020016000815260200160006001600160a01b03168152602001336001600160a01b03168152602001846080013581526020018460a0013581526020016000600381111561077657610776610991565b9052600083815260016020818152604092839020845181559084015181830180546001600160a01b03199081166001600160a01b039384161790915593850151600283018054861691831691909117905560608501516003808401919091556080860151600484015560a0860151600584015560c0860151600684015560e086015160078401805487169184169190911790556101008601516008840180549096169216919091179093556101208401516009820155610140840151600a820155610160840151600b8201805492949193909260ff191691849081111561085f5761085f610991565b021790555050506000828152600260209081526040909120805460ff1916600117905561088e90840184610b14565b604080516323b872dd60e01b81523360048201523060248201529085013560448201526001600160a01b0391909116906323b872dd906064016020604051808303816000875af11580156108e6573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061090a9190610a8b565b507f775e8c0ffa7bf40e9c71f238713f5487ce733675d4ba71fe7235aa78c39a076b8261093a6020860186610b14565b61094a6040870160208801610b14565b8660400135876060013586338a608001358b60a0013560006040516103a59a99989796959493929190610b3d565b60006020828403121561098a57600080fd5b5035919050565b634e487b7160e01b600052602160045260246000fd5b600481106109c557634e487b7160e01b600052602160045260246000fd5b9052565b8c81526001600160a01b038c811660208301528b81166040830152606082018b9052608082018a905260a0820189905260c0820188905286811660e08301528516610100820152610120810184905261014081018390526101808101610a336101608301846109a7565b9d9c50505050505050505050505050565b600060c08284031215610a5657600080fd5b50919050565b634e487b7160e01b600052601160045260246000fd5b80820180821115610a8557610a85610a5c565b92915050565b600060208284031215610a9d57600080fd5b81518015158114610aad57600080fd5b9392505050565b82815260408101610aad60208301846109a7565b848152602081018490526001600160a01b038316604082015260808101610af260608301846109a7565b95945050505050565b600060018201610b0d57610b0d610a5c565b5060010190565b600060208284031215610b2657600080fd5b81356001600160a01b0381168114610aad57600080fd5b8a81526001600160a01b038a811660208301528981166040830152606082018990526080820188905260a08201879052851660c082015260e0810184905261010081018390526101408101610b966101208301846109a7565b9b9a505050505050505050505056fea2646970667358221220005ca6b459250406f5dcffc791d291236485e227400258543f8be98f1d52c37964736f6c63430008130033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100935760003560e01c8063571a26a011610066578063571a26a01461010f5780639aafc6c9146101a8578063ad5b572b146101bb578063c3a079ed146101ce578063c422c283146101d757600080fd5b806313cc63b0146100985780632ad71573146100ad5780632e993611146100c95780633c0868f0146100dc575b600080fd5b6100ab6100a6366004610978565b6101df565b005b6100b660005481565b6040519081526020015b60405180910390f35b6100ab6100d7366004610978565b6103b2565b6100ff6100ea366004610978565b60026020526000908152604090205460ff1681565b60405190151581526020016100c0565b61019061011d366004610978565b600160208190526000918252604090912080549181015460028201546003830154600484015460058501546006860154600787015460088801546009890154600a8a0154600b909a01546001600160a01b03998a169a988a16999798969795969495938416949390921692909160ff168c565b6040516100c09c9b9a999897969594939291906109c9565b6100ab6101b6366004610978565b610582565b6100ab6101c9366004610a44565b6106a5565b6100b661012c81565b6100b6603c81565b600081815260026020526040902054819060ff166102105760405163e6759c6760e01b815260040160405180910390fd5b60008281526001602052604090206008015482906001600160a01b0316331461024c576040516309359e9160e21b815260040160405180910390fd5b6000838152600160205260408120600b015460ff16600381111561027257610272610991565b146102905760405163f84e4cd960e01b815260040160405180910390fd5b6000838152600160205260409020600501546102ae90603c90610a72565b4210156102ce576040516315ce877360e21b815260040160405180910390fd5b600083815260016020819052604091829020600b8101805460ff191660039081179091559181015460088201549290910154925163a9059cbb60e01b81526001600160a01b0392831660048201526024810193909352169063a9059cbb906044016020604051808303816000875af115801561034e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103729190610a8b565b507f38cc7308f08523372c6405c0f30c2dea2c0200e46d3ad4ce5f020de16f0c41fe8360036040516103a5929190610ab4565b60405180910390a1505050565b600081815260026020526040902054819060ff166103e35760405163e6759c6760e01b815260040160405180910390fd5b60016000838152600160205260409020600b015460ff16600381111561040b5761040b610991565b1461042957604051630e91875760e41b815260040160405180910390fd5b6000828152600160205260409020600601546104489061012c90610a72565b421015610468576040516362b79be160e11b815260040160405180910390fd5b6000828152600160205260409020600701546001600160a01b031633146104a1576040516208978560e71b815260040160405180910390fd5b600082815260016020819052604091829020600b8101805460ff19166002179055908101546007820154600390920154925163a9059cbb60e01b81526001600160a01b0392831660048201526024810193909352169063a9059cbb906044016020604051808303816000875af115801561051f573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105439190610a8b565b507f368ce30642758fd6da9184c013bd43dc19f7aee61c1575f32fc2070b72549847826002604051610576929190610ab4565b60405180910390a15050565b600081815260026020526040902054819060ff166105b35760405163e6759c6760e01b815260040160405180910390fd5b6000828152600160205260408120600b015460ff1660038111156105d9576105d9610991565b146105f75760405163f84e4cd960e01b815260040160405180910390fd5b60008281526001602052604090206005015461061590603c90610a72565b42111561063557604051632c846e4160e21b815260040160405180910390fd5b600082815260016020819052604091829020600b8101805460ff1916831790554260068201819055600790910180546001600160a01b0319163390811790915592517f3254306c79735fd1387a3fdb988c98111651682c7dc7c9fa03b2b3bd8830c1339361057693879392610ac8565b600080600081546106b590610afb565b918290555060408051610180810190915281815290915042906020808201906106e090860186610b14565b6001600160a01b031681526020018460200160208101906107019190610b14565b6001600160a01b0316815260200184604001358152602001846060013581526020018281526020016000815260200160006001600160a01b03168152602001336001600160a01b03168152602001846080013581526020018460a0013581526020016000600381111561077657610776610991565b9052600083815260016020818152604092839020845181559084015181830180546001600160a01b03199081166001600160a01b039384161790915593850151600283018054861691831691909117905560608501516003808401919091556080860151600484015560a0860151600584015560c0860151600684015560e086015160078401805487169184169190911790556101008601516008840180549096169216919091179093556101208401516009820155610140840151600a820155610160840151600b8201805492949193909260ff191691849081111561085f5761085f610991565b021790555050506000828152600260209081526040909120805460ff1916600117905561088e90840184610b14565b604080516323b872dd60e01b81523360048201523060248201529085013560448201526001600160a01b0391909116906323b872dd906064016020604051808303816000875af11580156108e6573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061090a9190610a8b565b507f775e8c0ffa7bf40e9c71f238713f5487ce733675d4ba71fe7235aa78c39a076b8261093a6020860186610b14565b61094a6040870160208801610b14565b8660400135876060013586338a608001358b60a0013560006040516103a59a99989796959493929190610b3d565b60006020828403121561098a57600080fd5b5035919050565b634e487b7160e01b600052602160045260246000fd5b600481106109c557634e487b7160e01b600052602160045260246000fd5b9052565b8c81526001600160a01b038c811660208301528b81166040830152606082018b9052608082018a905260a0820189905260c0820188905286811660e08301528516610100820152610120810184905261014081018390526101808101610a336101608301846109a7565b9d9c50505050505050505050505050565b600060c08284031215610a5657600080fd5b50919050565b634e487b7160e01b600052601160045260246000fd5b80820180821115610a8557610a85610a5c565b92915050565b600060208284031215610a9d57600080fd5b81518015158114610aad57600080fd5b9392505050565b82815260408101610aad60208301846109a7565b848152602081018490526001600160a01b038316604082015260808101610af260608301846109a7565b95945050505050565b600060018201610b0d57610b0d610a5c565b5060010190565b600060208284031215610b2657600080fd5b81356001600160a01b0381168114610aad57600080fd5b8a81526001600160a01b038a811660208301528981166040830152606082018990526080820188905260a08201879052851660c082015260e0810184905261010081018390526101408101610b966101208301846109a7565b9b9a505050505050505050505056fea2646970667358221220005ca6b459250406f5dcffc791d291236485e227400258543f8be98f1d52c37964736f6c63430008130033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 149,
+        "contract": "contracts/AISwap.sol:AISwap",
+        "label": "auctionCount",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 154,
+        "contract": "contracts/AISwap.sol:AISwap",
+        "label": "auctions",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_uint256,t_struct(Auction)129_storage)"
+      },
+      {
+        "astId": 158,
+        "contract": "contracts/AISwap.sol:AISwap",
+        "label": "auctionExists",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_uint256,t_bool)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_enum(AuctionStatus)147": {
+        "encoding": "inplace",
+        "label": "enum AISwap.AuctionStatus",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_uint256,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_uint256,t_struct(Auction)129_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct AISwap.Auction)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Auction)129_storage"
+      },
+      "t_struct(Auction)129_storage": {
+        "encoding": "inplace",
+        "label": "struct AISwap.Auction",
+        "members": [
+          {
+            "astId": 105,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "auctionId",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 107,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "tokenInputAddress",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 109,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "tokenOutputAddress",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_address"
+          },
+          {
+            "astId": 111,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "tokenInputAmount",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 113,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "minimumTokenOutputAmount",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 115,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "creationTime",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 117,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "claimingTime",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 119,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "claimer",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_address"
+          },
+          {
+            "astId": 121,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "owner",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_address"
+          },
+          {
+            "astId": 123,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "sourceChain",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 125,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "destinationChain",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 128,
+            "contract": "contracts/AISwap.sol:AISwap",
+            "label": "auctionStatus",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_enum(AuctionStatus)147"
+          }
+        ],
+        "numberOfBytes": "384"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

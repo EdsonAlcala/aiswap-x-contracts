@@ -52,14 +52,14 @@ const config: HardhatUserConfig = {
       url: CONFIG.arbitrumGoerliRPCURL,
       accounts: {
         mnemonic: DEPLOYER_MNEMONIC,
-        initialIndex: 1
+        initialIndex: 0
       }
     },
     goerli: {
       url: CONFIG.goerliRPCURL,
       accounts: {
         mnemonic: DEPLOYER_MNEMONIC,
-        initialIndex: 2
+        initialIndex: 0
       }
     }
   }
