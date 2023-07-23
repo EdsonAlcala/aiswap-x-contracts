@@ -61,6 +61,27 @@ const config: HardhatUserConfig = {
         mnemonic: DEPLOYER_MNEMONIC,
         initialIndex: 0
       }
+    },
+    gnosis: {
+      url: CONFIG.gnosisRPCURL,
+      accounts: {
+        mnemonic: DEPLOYER_MNEMONIC,
+        initialIndex: 0
+      }
+    },
+    linea: {
+      url: CONFIG.lineaRPCURL,
+      accounts: {
+        mnemonic: DEPLOYER_MNEMONIC,
+        initialIndex: 0
+      }
+    },
+    arbitrum: {
+      url: CONFIG.arbitrumRPCURL,
+      accounts: {
+        mnemonic: DEPLOYER_MNEMONIC,
+        initialIndex: 0
+      }
     }
   }
 };

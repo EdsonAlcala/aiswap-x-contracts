@@ -3,5 +3,8 @@ export interface DeploymentConfig {
     sampleUserAddress: string
     arbitrumGoerliRPCURL: string
     goerliRPCURL: string
+    gnosisRPCURL: string
     arbitrumMainnetRPCURL: string
+    lineaRPCURL: string
+    arbitrumRPCURL: string
 }
