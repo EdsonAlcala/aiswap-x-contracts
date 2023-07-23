@@ -6,7 +6,8 @@
     "test:weth": "hardhat test test/WETH.test.ts",
     "test:aiswap": "hardhat test test/AISwap.test.ts",
     "test": "hardhat test",
-    "deploy:arbitrum_goerli": "hardhat deploy --network arbitrum_goerli",
+    "deploy:arbitrum_goerli": "hardhat deploy --network arbitrum_goerli --reset",
+    "deploy:goerli": "hardhat deploy --network goerli --reset",
     "deploy:arbitrum": "hardhat deploy --network arbitrum",
     "deploy:gnosis": "hardhat deploy --network gnosis",
     "deploy:linea": "hardhat deploy --network linea"
