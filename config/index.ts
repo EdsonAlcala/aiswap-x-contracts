@@ -1,8 +1,8 @@
 import { DeploymentConfig } from "../types";
 
 export const CONFIG: DeploymentConfig = {
-    marketMakerAddress: "0xEB40824601A19BdF20542a677E52f1E4297c66Fa", // account 2
-    sampleUserAddress: "0xC12AE746678740A052B60c3D6b591ed7ADee5926", // account 3
+    marketMakerAddress: "0x407C12D39b01E50Cf8a25d41fd349743193D082C", // account 2
+    sampleUserAddress: "0x23BF95De9F90338F973056351C8Cd2CB78cbe52f", // account 3
     arbitrumGoerliRPCURL: `https://arbitrum-goerli.infura.io/v3/${process.env.INFURA_API_KEY || ""}`,
     goerliRPCURL: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY || ""}`,
     arbitrumMainnetRPCURL: `https://arbitrum-mainnet.infura.io/v3/${process.env.INFURA_API_KEY || ""}`,
